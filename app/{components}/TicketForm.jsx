@@ -73,8 +73,6 @@ const TicketForm = () => {
                 </select>
                 <button type="submit" className = "btn max-w-xs">Create Ticket</button>
             </form>
-
-
         </div>
     )
 

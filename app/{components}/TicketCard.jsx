@@ -3,11 +3,12 @@ import PriorityDisplay from "./PriorityDisplay"
 import ProgressBar from "./ProgressBar"
 import StatusDisplay from "./StatusDisplay"
 
-const TicketCard = () => {
+const TicketCard = ({ ticket }) => {
+    console.log(ticket.priority)
     return (
         <div className="flex flex-col max-w-sm overflow-hidden rounded-md shadow-lg p-3 m-2">
             <div className="flex mb-3">
-                <PriorityDisplay/>
+                <PriorityDisplay priority = {ticket.priority}/>
                 <div className="ml-auto"><DeleteBlock/></div>
             </div>
             <h4>Ticket Title</h4>
