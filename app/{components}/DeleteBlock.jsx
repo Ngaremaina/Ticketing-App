@@ -8,7 +8,7 @@ const DeleteBlock = ({id}) => {
     const router = useRouter()
 
     const deleteTicket = async () => {
-        const response = await fetch(`https://tickety-app.netlify.app/api/Tickets/${id}`, {
+        const response = await fetch(`https://ticketee.vercel.app/api/Tickets/${id}`, {
             method:"DELETE",
 
         })

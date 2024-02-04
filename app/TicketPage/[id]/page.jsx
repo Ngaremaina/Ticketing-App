@@ -1,7 +1,7 @@
 import TicketForm from "@/app/{components}/TicketForm"
 
 const getTicketById = async (id) => {
-    const res = await fetch(`https://tickety-app.netlify.app/api/Tickets/${id}`, {
+    const res = await fetch(`https://ticketee.vercel.app/api/Tickets/${id}`, {
         cache:"no-store"
     })
 
