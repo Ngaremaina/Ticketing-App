@@ -73,6 +73,7 @@ const TicketForm = ({ticket}) => {
                 <h3>{EDITMODE ? "Update Your Ticket" :"Create Your Ticket"}</h3>
                 <label>Ticket</label>
                 <input id = "title" name = "title" value = {form.title} type = "text" onChange = {handleChange} required={true}/>
+                <label>Description</label>
                 <textarea id = "description" name = "description" value = {form.description} type = "text" onChange = {handleChange} required={true} rows = "5"/>
                 <label>Category</label>
                 <select name = "category" value = {form.category} onChange = {handleChange}>
