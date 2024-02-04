@@ -1,4 +1,4 @@
-**Ticketing Web Application README**
+**Ticketing Web Application**
 
 This Ticketing Web Application is built using the Next.js framework and MongoDB database. It provides basic CRUD (Create, Read, Update, Delete) functionalities for managing tickets.
 
