@@ -4,7 +4,18 @@ import ProgressBar from "./ProgressBar"
 import StatusDisplay from "./StatusDisplay"
 
 const TicketCard = ({ ticket }) => {
-    console.log(ticket.priority)
+    const formattimestamp = (timestamp) => {
+        const options = {
+            year:"numeric",
+            day:"2-digit",
+            hour:"2-digit",
+            minutes:"2-digit",
+            hour12:true
+        }
+        const date = new Date(timestamp)
+        const formattedDate = date.toLocalString("en-US", options)
+        return formattedDate
+    }
     return (
         <div className="flex flex-col max-w-sm overflow-hidden rounded-md shadow-lg p-3 m-2">
             <div className="flex mb-3">
@@ -13,15 +24,15 @@ const TicketCard = ({ ticket }) => {
             </div>
             <h4>Ticket Title</h4>
             <hr className="h-px border-0 bg-page mb-2"/>
-            <p className="whitespace-pre-wrap">Ticket Description</p>
+            <p className="whitespace-pre-wrap">{ticket.description}</p>
             <div className="flex-grow"> </div>
             <div className="flex mt-2">
                 <div className="flex flex-col"> 
-                    <p className="text-xs my-1">03/02/2024 2:06PM</p> 
-                    <ProgressBar/>
+                    <p className="text-xs my-1">{formattimestamp(ticket.createdAt)}</p> 
+                    <ProgressBar progress = {ticket.progress}/>
                 </div>
                 <div className="ml-auto flex items-end">
-                    <StatusDisplay/>
+                    <StatusDisplay status = {ticket.status}/>
 
                 </div>
                 
