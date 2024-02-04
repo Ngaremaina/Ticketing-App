@@ -13,14 +13,14 @@ const TicketCard = ({ ticket }) => {
             hour12:true
         }
         const date = new Date(timestamp)
-        const formattedDate = date.toLocalString("en-US", options)
+        const formattedDate = date.toLocaleString("en-US", options)
         return formattedDate
     }
     return (
         <div className="flex flex-col max-w-sm overflow-hidden rounded-md shadow-lg p-3 m-2">
             <div className="flex mb-3">
                 <PriorityDisplay priority = {ticket.priority}/>
-                <div className="ml-auto"><DeleteBlock/></div>
+                <div className="ml-auto"><DeleteBlock id = {ticket._id}/></div>
             </div>
             <h4>Ticket Title</h4>
             <hr className="h-px border-0 bg-page mb-2"/>
