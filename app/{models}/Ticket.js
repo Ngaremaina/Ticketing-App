@@ -1,11 +1,11 @@
 import mongoose, {Schema} from "mongoose"
 
-mongoose.connect("mongodb+srv://ngaremaina4:4NJgOigQregJbkTK@cluster0.0lxkfbz.mongodb.net/TicketDB");
+mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise
 
 const ticketSchema = new Schema(
     {
-        title:String,
+        title:String,   
         description:String,
         category:String,
         priority:Number,
