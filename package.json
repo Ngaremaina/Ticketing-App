@@ -2,6 +2,7 @@
   "name": "ticket-app",
   "version": "0.1.0",
   "private": true,
+  "proxy":"https://tickety-app.netlify.app/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

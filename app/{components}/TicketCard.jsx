@@ -2,6 +2,7 @@ import DeleteBlock from "./DeleteBlock"
 import PriorityDisplay from "./PriorityDisplay"
 import ProgressBar from "./ProgressBar"
 import StatusDisplay from "./StatusDisplay"
+import Link from "next/link"
 
 const TicketCard = ({ ticket }) => {
     const formattimestamp = (timestamp) => {
@@ -22,7 +23,8 @@ const TicketCard = ({ ticket }) => {
                 <PriorityDisplay priority = {ticket.priority}/>
                 <div className="ml-auto"><DeleteBlock id = {ticket._id}/></div>
             </div>
-            <h4>Ticket Title</h4>
+            <Link href = {`/TicketPage/${ticket._id}`} style = {{ display: "contents" }}>
+            <h4>{ticket.title}</h4>
             <hr className="h-px border-0 bg-page mb-2"/>
             <p className="whitespace-pre-wrap">{ticket.description}</p>
             <div className="flex-grow"> </div>
@@ -37,6 +39,7 @@ const TicketCard = ({ ticket }) => {
                 </div>
                 
             </div>
+            </Link>
             
         </div>
     )

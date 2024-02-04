@@ -2,29 +2,59 @@
 import { useRouter } from "next/navigation"
 import React, { useState } from "react"
 
-const TicketForm = () => {
+const TicketForm = ({ticket}) => {
+    const EDITMODE = ticket._id === "new" ? false : true
+
     const router = useRouter()
-    const [form, setForm] = useState({
+    const startingTicketData = {
         title:"",
         description:"",
         priority:1,
         progress:0,
         status:"not started",
         category:"Hardware Problem"
-    })
+
+    }
+    const [form, setForm] = useState(startingTicketData)
+
+    if (EDITMODE){
+        startingTicketData["title"] = ticket.title
+        startingTicketData["description"] = ticket.description
+        startingTicketData["priority"] = ticket.priority
+        startingTicketData["progress"] = ticket.progress
+        startingTicketData["status"] = ticket.status
+        startingTicketData["category"] = ticket.category
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        const res = await fetch("/api/Tickets", {
-            method:"POST",
-            header:{"Content-type":"application/json"},
-            body: JSON.stringify({form})
+        if (EDITMODE){
+            const res = await fetch(`/api/Tickets/${ticket._id}`, {
+                method:"PUT",
+                header:{"Content-type":"application/json"},
+                body: JSON.stringify({form})
+    
+            })
+            if (!res.ok){
+                throw new Error("Failed to update Ticket")
+            }
+    
 
-        })
-        if (!res.ok){
-            throw new Error("Failed to create Ticket")
         }
+        else{
+            const res = await fetch("/api/Tickets", {
+                method:"POST",
+                header:{"Content-type":"application/json"},
+                body: JSON.stringify({form})
+    
+            })
+            if (!res.ok){
+                throw new Error("Failed to create Ticket")
+            }
+    
 
+        }
+        
         router.refresh()
         router.push("/")
 
@@ -40,7 +70,7 @@ const TicketForm = () => {
     return(
         <div className = "flex justify-center">
             <form className="flex flex-col gap-3 w-1/2" method="post" onSubmit={handleSubmit}>
-                <h3>Create Your Ticket</h3>
+                <h3>{EDITMODE ? "Update Your Ticket" :"Create Your Ticket"}</h3>
                 <label>Ticket</label>
                 <input id = "title" name = "title" value = {form.title} type = "text" onChange = {handleChange} required={true}/>
                 <textarea id = "description" name = "description" value = {form.description} type = "text" onChange = {handleChange} required={true} rows = "5"/>
@@ -71,7 +101,7 @@ const TicketForm = () => {
                     <option value = "Started">Started</option>
                     <option value = "Done">Done</option>
                 </select>
-                <button type="submit" className = "btn max-w-xs">Create Ticket</button>
+                <button type="submit" className = "btn max-w-xs">{EDITMODE ? "Update Ticket" :"Create Ticket"}</button>
             </form>
         </div>
     )
