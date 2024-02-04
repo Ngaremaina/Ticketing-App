@@ -2,7 +2,7 @@ import TicketCard from "./{components}/TicketCard"
 
 const getTickets = async () => {
   try{
-    const res = await fetch("https://ticketee.vercel.app/api/Tickets",{
+    const res = await fetch("https://tickety-app.netlify.app/api/Tickets",{
       cache:"no-store"
     })
     return res.json()
