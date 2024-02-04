@@ -29,7 +29,7 @@ const TicketForm = ({ticket}) => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         if (EDITMODE){
-            const res = await fetch(`/api/Tickets/${ticket._id}`, {
+            const res = await fetch(`https://tickety-app.netlify.app/api/Tickets/${ticket._id}`, {
                 method:"PUT",
                 header:{"Content-type":"application/json"},
                 body: JSON.stringify({form})
@@ -42,7 +42,7 @@ const TicketForm = ({ticket}) => {
 
         }
         else{
-            const res = await fetch("/api/Tickets", {
+            const res = await fetch("https://tickety-app.netlify.app/api/Tickets", {
                 method:"POST",
                 header:{"Content-type":"application/json"},
                 body: JSON.stringify({form})
