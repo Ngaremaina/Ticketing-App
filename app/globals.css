@@ -33,7 +33,7 @@
         @apply mt-4
     }
     input, select, textarea{
-        @apply m-1 rounded p-1
+        @apply m-1 rounded p-1 bg-input-color
     }
 }
 

@@ -18,7 +18,7 @@ const TicketCard = ({ ticket }) => {
         return formattedDate
     }
     return (
-        <div className="flex flex-col max-w-sm overflow-hidden rounded-md shadow-lg p-3 m-2">
+        <div className="flex flex-col max-w-sm overflow-hidden rounded-md shadow-lg p-3 m-2 bg-card hover:bg-blue-accent">
             <div className="flex mb-3">
                 <PriorityDisplay priority = {ticket.priority}/>
                 <div className="ml-auto"><DeleteBlock id = {ticket._id}/></div>
