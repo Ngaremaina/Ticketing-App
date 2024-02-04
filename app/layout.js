@@ -21,7 +21,6 @@ export default function RootLayout({ children }) {
           <Nav/>
           <div className = "flex-grow overflow-y-auto bg-page text-default-text">{children}</div>
         </div>
-        <div className = "inline-block align-text-bottom">Developed By Owen Maina</div>
       </body>
     </html>
   );
