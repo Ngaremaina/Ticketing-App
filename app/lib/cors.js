@@ -1,5 +1,3 @@
-import NextCors from "nextjs-cors";
-
 export function setCorsHeaders(response, origin) {
   const allowedOrigins = ["http://localhost:3000", "https://teeketee.vercel.app"];
   const allowOrigin = allowedOrigins.includes(origin) ? origin : "";
