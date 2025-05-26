@@ -9,7 +9,13 @@ const DeleteBlock = ({id}) => {
     const router = useRouter()
 
     const deleteTicket = async () => {
-        const response = await axiosInstance.delete(`${id}`)
+        const response = await axiosInstance.delete(`${id}`, {
+             headers: {
+                "Cache-Control": "no-cache",
+                Pragma: "no-cache",
+                Expires: "0",
+            },
+        })
         if (response.ok){
             router.refresh()
         }

@@ -32,7 +32,12 @@ const TicketForm = ({ticket}) => {
         if (EDITMODE){
             try {
                 const res = await axiosInstance.put(`/Tickets/${ticket._id}`, {
-                    form: form
+                    form: form,
+                    headers: {
+                        "Cache-Control": "no-cache",
+                        Pragma: "no-cache",
+                        Expires: "0",
+                    },
                 });
                 console.log("Ticket updated:", res.data);
                 router.refresh();
@@ -46,7 +51,12 @@ const TicketForm = ({ticket}) => {
             try
                 {
                  const res = await axiosInstance.post('/Tickets', {
-                    form: form
+                    form: form,
+                    headers: {
+                        "Cache-Control": "no-cache",
+                        Pragma: "no-cache",
+                        Expires: "0",
+                    },
                 })
 
                 console.log("Added Ticket", res.data)
