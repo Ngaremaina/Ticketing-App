@@ -1,5 +1,6 @@
 import axiosInstance from "./lib/axios"
 import TicketCard from "./{components}/TicketCard"
+import { Analytics } from "@vercel/analytics/next"
 
 const getTickets = async () => {
   try{
@@ -21,6 +22,7 @@ const Dashboard = async () => {
   ];
   return (
     <div className="p-5">
+      <Analytics/>
       <div>
         {tickets && uniqueCategories?.map((uniqueCategory, categoryIndex) => (
             <div key={categoryIndex} className="mb-4">
