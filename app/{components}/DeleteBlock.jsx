@@ -3,15 +3,13 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faX} from "@fortawesome/free-solid-svg-icons"
 import {useRouter} from "next/navigation"
+import axiosInstance from "../lib/axios"
 
 const DeleteBlock = ({id}) => {
     const router = useRouter()
 
     const deleteTicket = async () => {
-        const response = await fetch(`https://tickety-app.netlify.app/api/Tickets/${id}`, {
-            method:"DELETE",
-
-        })
+        const response = axiosInstance.delete(`${id}`)
         if (response.ok){
             router.refresh()
         }

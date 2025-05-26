@@ -1,6 +1,7 @@
 "use client"
 import { useRouter } from "next/navigation"
 import React, { useState } from "react"
+import axiosInstance from "../lib/axios"
 
 const TicketForm = ({ticket}) => {
     const EDITMODE = ticket._id === "new" ? false : true
@@ -29,30 +30,24 @@ const TicketForm = ({ticket}) => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         if (EDITMODE){
-            const res = await fetch(`https://tickety-app.netlify.app/api/Tickets/${ticket._id}`, {
-                method:"PUT",
-                header:{"Content-type":"application/json"},
-                body: JSON.stringify({form})
-    
-            })
-            if (!res.ok){
-                throw new Error("Failed to update Ticket")
+            try {
+                const res = await axiosInstance.put(`/Tickets/${ticket._id}`, {
+                    ...form
+                });
+                console.log("Ticket updated:", res.data);
+                } 
+            catch (error) {
+                console.error("Failed to update ticket:", error.response?.data || error.message);
             }
-    
-
         }
         else{
-            const res = await fetch("https://tickety-app.netlify.app/api/Tickets", {
-                method:"POST",
-                header:{"Content-type":"application/json"},
-                body: JSON.stringify({form})
-    
+            const res = await axiosInstance.post('/Tickets', {
+                ...form
             })
+
             if (!res.ok){
                 throw new Error("Failed to create Ticket")
             }
-    
-
         }
         
         router.refresh()

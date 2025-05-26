@@ -1,15 +1,13 @@
+import axiosInstance from "./lib/axios"
 import TicketCard from "./{components}/TicketCard"
 
 const getTickets = async () => {
   try{
-    const res = await fetch("https://tickety-app.netlify.app/api/Tickets",{
-      cache:"no-store"
-    })
-    return res.json()
+    const res = await axiosInstance.get("/Tickets")
+    return res.data
   }
   catch(error){
     console.log("Failed to get Tickets", error)
-
   }
 
 }

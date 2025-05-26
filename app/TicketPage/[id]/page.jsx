@@ -1,18 +1,15 @@
+import axiosInstance from "@/app/lib/axios"
 import TicketForm from "@/app/{components}/TicketForm"
 
 const getTicketById = async (id) => {
-    const res = await fetch(`https://tickety-app.netlify.app/api/Tickets/${id}`, {
-        cache:"no-store"
-    })
+  try {
+    const res = await axiosInstance.get(`/Tickets/${id}`);
+    return res.data;  // this is the JSON payload
+  } catch (error) {
+    throw new Error("Failed to get Ticket: " + (error.response?.data?.message || error.message));
+  }
+};
 
-    if (!res.ok){
-        throw new Error("Failed to get Ticket")
-    }
-    return res.json()
-
-
-  
-}
 const TicketPage = async ({ params }) =>{
     const EDITMODE = params.id === "new" ? false : true
     let updateTicketData = {}
@@ -27,8 +24,6 @@ const TicketPage = async ({ params }) =>{
     }
     return <TicketForm ticket = {updateTicketData}/>
         
-
-
 }
 
 export default TicketPage
