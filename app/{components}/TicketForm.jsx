@@ -35,6 +35,8 @@ const TicketForm = ({ticket}) => {
                     form: form
                 });
                 console.log("Ticket updated:", res.data);
+                router.refresh();
+                router.push("/");
                 } 
             catch (error) {
                 console.error("Failed to update ticket:", error.response?.data || error.message);
@@ -48,18 +50,13 @@ const TicketForm = ({ticket}) => {
                 })
 
                 console.log("Added Ticket", res.data)
+                router.refresh();
+                router.push("/");
             }
             catch (error) {
                 console.error("Failed to update ticket:", error.response?.data || error.message);
             }
-           
-
-            
         }
-        
-        router.refresh()
-        router.push("/")
-
     }
 
     function handleChange(event){
