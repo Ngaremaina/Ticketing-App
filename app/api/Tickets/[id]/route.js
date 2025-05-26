@@ -1,53 +1,63 @@
-import Ticket from "@/app/{models}/Ticket"
-import {NextResponse} from "next/server"
-import dbConnect from "@/app/lib/dbConnect"
-import { runCors } from "@/app/lib/cors";
+import Ticket from "@/app/{models}/Ticket";
+import { NextResponse } from "next/server";
+import dbConnect from "@/app/lib/dbConnect";
+import { setCorsHeaders } from "@/app/lib/cors";
 
-export async function GET(request, {params}){
-    try{
-        await runCors(request, NextResponse);
-        await dbConnect();
-        const {id} = params
+// GET a ticket by ID
+export async function GET(request, { params }) {
+  const origin = request.headers.get("origin");
 
-        const findTicket = await Ticket.findOne({_id:id})
-        return NextResponse.json(findTicket, {status: 200})
+  try {
+    await dbConnect();
+    const { id } = params;
+    const ticket = await Ticket.findOne({ _id: id });
 
-    }
-    catch(error){
-        return NextResponse.json({message: "Error", error}, {status: 500})
-    }
-    
-}
-export async function DELETE(request, {params}){
-    try{
-        await runCors(request, NextResponse);
-        await dbConnect();
-        const {id} = params
-        await Ticket.findByIdAndDelete(id)
-
-        return NextResponse.json({message:"Ticket Deleted"}, {status: 200})
-
-    }
-    catch(error){
-        return NextResponse.json({message: "Error", error}, {status: 500})
-    }
+    const response = NextResponse.json(ticket, { status: 200 });
+    return setCorsHeaders(response, origin);
+  } catch (error) {
+    console.error("GET /Tickets/[id] error:", error);
+    const response = NextResponse.json({ message: "Error", error: error.message }, { status: 500 });
+    return setCorsHeaders(response, origin);
+  }
 }
 
-export async function PUT(request, {params}){
-    try{
-        await dbConnect();
-        const {id} = params
-        const body = await request.json()
-        const ticketData = body.form
+// DELETE a ticket by ID
+export async function DELETE(request, { params }) {
+  const origin = request.headers.get("origin");
 
-        const updateTicketData = await Ticket.findByIdAndUpdate(id, {
-            ...ticketData
-        })
+  try {
+    await dbConnect();
+    const { id } = params;
+    await Ticket.findByIdAndDelete(id);
 
-        return NextResponse.json({message:"Ticket Updated"}, {status: 200})
-
-    }
-    catch(error){
-        return NextResponse.json({message: "Error", error}, {status: 500})
-    }
+    const response = NextResponse.json({ message: "Ticket Deleted" }, { status: 200 });
+    return setCorsHeaders(response, origin);
+  } catch (error) {
+    console.error("DELETE /Tickets/[id] error:", error);
+    const response = NextResponse.json({ message: "Error", error: error.message }, { status: 500 });
+    return setCorsHeaders(response, origin);
+  }
 }
+
+// PUT (update) a ticket by ID
+export async function PUT(request, { params }) {
+  const origin = request.headers.get("origin");
+
+  try {
+    await dbConnect();
+    const { id } = params;
+    const body = await request.json();
+    const ticketData = body.form;
+
+    await Ticket.findByIdAndUpdate(id, { ...ticketData });
+
+    const response = NextResponse.json({ message: "Ticket Updated" }, { status: 200 });
+    return setCorsHeaders(response, origin);
+  } catch (error) {
+    console.error("PUT /Tickets/[id] error:", error);
+    const response = NextResponse.json({ message: "Error", error: error.message }, { status: 500 });
+    return setCorsHeaders(response, origin);
+  }
+}
+
+export { OPTIONS } from "@/app/lib/cors";

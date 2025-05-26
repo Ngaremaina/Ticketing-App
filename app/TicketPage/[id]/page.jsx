@@ -4,7 +4,7 @@ import TicketForm from "@/app/{components}/TicketForm"
 const getTicketById = async (id) => {
   try {
     const res = await axiosInstance.get(`/Tickets/${id}`);
-    return res.data;  // this is the JSON payload
+    return res.data; 
   } catch (error) {
     throw new Error("Failed to get Ticket: " + (error.response?.data?.message || error.message));
   }

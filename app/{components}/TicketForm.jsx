@@ -32,7 +32,7 @@ const TicketForm = ({ticket}) => {
         if (EDITMODE){
             try {
                 const res = await axiosInstance.put(`/Tickets/${ticket._id}`, {
-                    ...form
+                    form: form
                 });
                 console.log("Ticket updated:", res.data);
                 } 
@@ -41,13 +41,20 @@ const TicketForm = ({ticket}) => {
             }
         }
         else{
-            const res = await axiosInstance.post('/Tickets', {
-                ...form
-            })
+            try
+                {
+                 const res = await axiosInstance.post('/Tickets', {
+                    form: form
+                })
 
-            if (!res.ok){
-                throw new Error("Failed to create Ticket")
+                console.log("Added Ticket", res.data)
             }
+            catch (error) {
+                console.error("Failed to update ticket:", error.response?.data || error.message);
+            }
+           
+
+            
         }
         
         router.refresh()

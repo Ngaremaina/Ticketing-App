@@ -1,24 +1,26 @@
 import NextCors from "nextjs-cors";
 
-export async function runCors(request, response) {
-  await NextCors(request, response, {
-    origin: ["http://localhost:3000", "https://teeketee.vercel.app"],
-    methods: ["GET", "POST", "OPTIONS"],
-    optionsSuccessStatus: 200,
-  });
+export function setCorsHeaders(response, origin) {
+  const allowedOrigins = ["http://localhost:3000", "https://teeketee.vercel.app"];
+  const allowOrigin = allowedOrigins.includes(origin) ? origin : "";
+
+  response.headers.set("Access-Control-Allow-Origin", allowOrigin);
+  response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  response.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  return response;
 }
 
 export async function OPTIONS(request) {
-  // Handle CORS preflight requests
-  const response = new Response(null, { status: 204 });
-  response.headers.set("Access-Control-Allow-Origin", ["http://localhost:3000", "https://teeketee.vercel.app"]);
-  response.headers.set(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS"
-  );
-  response.headers.set(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization"
-  );
-  return response;
+  const origin = request.headers.get("origin") || "*";
+
+  const headers = new Headers({
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  });
+
+  return new Response(null, {
+    status: 204,
+    headers,
+  });
 }
