@@ -15,7 +15,7 @@
     "axios": "^1.12.0",
     "mongodb": "^6.3.0",
     "mongoose": "^8.9.5",
-    "next": "14.2.33",
+    "next": "16.4.3",
     "nextjs-cors": "^2.2.0",
     "react": "^18",
     "react-dom": "^18"
